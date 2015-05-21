@@ -54,9 +54,12 @@
     <Compile Include="Neuron.fs" />
     <Compile Include="Layer.fs" />
     <Compile Include="Network.fs" />
-    <Compile Include="LogicGates.fs" />
-    <Compile Include="Program.fs" />
     <Compile Include="Trainer.fs" />
+    <Compile Include="LogicGateCases.fs" />
+    <Compile Include="LogicGates.fs" />
+    <Compile Include="MnistSamples.fs" />
+    <Compile Include="Mnist.fs" />
+    <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

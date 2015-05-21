@@ -10,6 +10,6 @@ let getFloatsFromText text =
     |> Array.map (double)
 
 let createSample inputText targetText =
-{   Input = getFloatsFromText inputText
+  { Input = getFloatsFromText inputText
     Target = getFloatsFromText targetText }
 

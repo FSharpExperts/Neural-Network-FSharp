@@ -71,14 +71,19 @@ let propagateBack net target =
         neuron.Error <- valueDelta * net.Activation.CalcDerivative neuron.Value)
          
     // foldback updating neuron errors and adjusting weights
-    (net.HiddenLayers, net.OutputLayer)
-    ||> Array.foldBack(fun layer outLayer ->
-        layer.Neurons
-        |> Array.iteri(fun index neuron -> 
-            neuron.Error <- 
-                (0., outLayer.Neurons)
-                ||> Array.fold (fun error outNeuron ->
-                    error + (outNeuron.InboundWeights.[index] * outNeuron.Error)))
-        adjustWeightsBetweenLayers layer outLayer
-        layer)
-    |> ignore
+    let layerAfterInput = 
+        (net.HiddenLayers, net.OutputLayer)
+        ||> Array.foldBack(fun layer outLayer ->
+            layer.Neurons
+            |> Array.iteri(fun index neuron -> 
+                let valueDelta =  
+                    (0., outLayer.Neurons)
+                    ||> Array.fold (fun error outNeuron ->
+                        error + (outNeuron.InboundWeights.[index] * outNeuron.Error))
+                neuron.Error <- valueDelta * net.Activation.CalcDerivative neuron.Value)
+            adjustWeightsBetweenLayers layer outLayer
+            layer)
+    
+    adjustWeightsBetweenLayers net.InputLayer layerAfterInput
+    
+   
